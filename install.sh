@@ -1,12 +1,10 @@
 #!/bin/bash
 set -e
 
-# Nome do repositório
 REPO_NAME="orquestracao-multillm-mcp-rag"
 
 echo "Iniciando instalação do repositório: $REPO_NAME"
 
-# Função para checar comandos necessários
 check_command() {
   command -v "$1" >/dev/null 2>&1 || {
     echo >&2 "Erro: '$1' não encontrado. Por favor, instale e execute novamente."
@@ -14,29 +12,16 @@ check_command() {
   }
 }
 
-# Checar dependências essenciais
 echo "Verificando dependências básicas..."
 check_command git
-check_command python
-check_command pip
-check_command docker
+check_command curl
+check_command python3
+check_command pip3
 
-# Variável para modo não interativo
-NONINTERACTIVE=${NONINTERACTIVE:-0}
+echo "Instalando dependências Python..."
 
-# Instalação de componentes
-install_components() {
-  echo "Realizando passos de instalação para $REPO_NAME ..."
-  # Exemplo: Criar ambiente virtual e instalar dependências Python
-  # python -m venv .venv
-  # source .venv/bin/activate
-  # if [ -f "requirements.txt" ]; then
-  #   pip install -r requirements.txt
-  # fi
-  echo "Passos de instalação concluídos."
-}
+if [ -f "requirements.txt" ]; then
+  pip3 install -r requirements.txt
+fi
 
-# Rodar instalação
-install_components
-
-echo "Instalação do repositório $REPO_NAME finalizada."
+echo "Instalação do $REPO_NAME concluída."
